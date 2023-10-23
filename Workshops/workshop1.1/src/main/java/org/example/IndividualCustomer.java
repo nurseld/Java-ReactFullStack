@@ -1,6 +1,6 @@
 package org.example;
 
-public class IndividualCustomer {
+public class IndividualCustomer extends Customer {
 
     private String firstName;
     private String lastName;
