@@ -77,7 +77,9 @@ public class Main {
         corporateCustomer.setTaxNumber("2344567");
         corporateCustomer.setCustomerNumber("34566");
 
-        Customer[] customers = {individualCustomer,corporateCustomer,};
+        Customer[] customers = {individualCustomer,corporateCustomer};
+
+        //System.out.println(individualCustomer.getFirstName());
 
     }
 }
