@@ -5,6 +5,7 @@ import oopWithNLayeredApp.dataAccess.ProductDao;
 import oopWithNLayeredApp.entities.Product;
 
 public class ProductManager {
+
     private ProductDao productDao;
     private Logger[] loggers;
 

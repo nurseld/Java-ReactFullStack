@@ -7,5 +7,3 @@ public class JdbcProductDao implements ProductDao {
         System.out.println("JDBC ile veri tabanına eklendi");
     }
 }
-
-
