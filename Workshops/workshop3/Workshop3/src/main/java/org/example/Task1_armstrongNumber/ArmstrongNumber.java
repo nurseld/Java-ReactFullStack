@@ -2,8 +2,12 @@ package org.example.Task1_armstrongNumber;
 
 import java.util.Scanner;
 
+
+
 public class ArmstrongNumber {
     public static void main(String[] args) {
+
+        //  A Java program to check if the entered number is Armstrong number:
 
         Scanner input = new Scanner(System.in);
         System.out.print("Enter a number to check if it's an Armstrong number: ");
@@ -19,9 +23,8 @@ public class ArmstrongNumber {
             number /= 10;
             counter++;
         }
-        System.out.println(number);
 
-        changeNumber = originalNumber;
+       changeNumber = originalNumber;
 
         while (changeNumber != 0) {
             numberMod = changeNumber % 10;
@@ -30,9 +33,9 @@ public class ArmstrongNumber {
         }
 
         if (numberPow == originalNumber) {
-            System.out.println(originalNumber + " armstrong number");
+            System.out.println(originalNumber + " is an Armstrong number. ");
         } else {
-            System.out.println(originalNumber + " armstrong number değil");
+            System.out.println(originalNumber + " is not an Armstrong number. ");
 
 
         }

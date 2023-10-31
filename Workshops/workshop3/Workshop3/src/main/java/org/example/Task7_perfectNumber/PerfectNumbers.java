@@ -5,7 +5,9 @@ import java.math.BigInteger;
 public class PerfectNumbers {
     public static void main(String[] args) {
 
-        //if 2n -1 is a prime number, then 2n-1(2n-1) is a perfect number.
+        //A Java program that finds first 10 perfect numbers:
+
+        //if (2^n - 1 ) is a prime number, then Euclid said that 2^(n-1) * (2^n - 1) is a perfect number.
         int count = 0;
         int n = 2;
         BigInteger[] perfectNumbers = new BigInteger[10];
@@ -15,7 +17,7 @@ public class PerfectNumbers {
             BigInteger isPrime = BigInteger.valueOf(2).pow(n).subtract(BigInteger.ONE);
 
             if (isPrime.isProbablePrime(10)) { // Asal sayı kontrolü için isProbablePrime kullanılır
-                BigInteger perfectNumber = number.multiply(isPrime);//number*isPrime
+                BigInteger perfectNumber = number.multiply(isPrime);// number*isPrime
                 perfectNumbers[count] = perfectNumber;
                 count++;
             }
@@ -27,35 +29,27 @@ public class PerfectNumbers {
         for (BigInteger number : perfectNumbers) {
             System.out.println(number);
         }
+
+
         /*
-        int n = 3;
-        double number = Math.pow(2,n-1);
-        double isPrime = Math.pow(2,n) - 1;
-        int count = 0;
 
-        for (int i = 1; i <= isPrime / 2; i++) {
-            if (isPrime % i == 0) {
-                count++;
-            }
-        }
-        if (count > 1) {
-            System.out.println("The number is not prime");
-        }
-        else {
-            System.out.println("The number is prime");
-            double perfectNumber = number * isPrime;
-            System.out.println(perfectNumber);
-        }
-*/
-        /*for(n = 1; n < 3; n++){
-            double number = Math.pow(2,n-1);
-            double isPrime = Math.pow(2,n) - 1;
-
-            for (int i = 1; i <= isPrime/ 2; i++) {
-                if (n % i == 0) {
-                    count++;
+        ============= Another Solution ==============
+        int sum = 0;
+        long number = 1;
+        int counter = 0;
+        while (counter <= 10) {
+            number++;
+            sum = 0;
+            for (int i = 1; i < number; i++) {
+                if (number % i == 0) {
+                    sum += i;
                 }
-            }}
-*/
+            }
+            if (sum == number) {
+                System.out.println("girilen sayı perfect "+ number);
+                counter++;
+            }
+        } */
     }
 }
+

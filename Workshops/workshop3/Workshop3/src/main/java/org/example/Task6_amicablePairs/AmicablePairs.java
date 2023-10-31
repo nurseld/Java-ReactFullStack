@@ -2,10 +2,13 @@ package org.example.Task6_amicablePairs;
 
 public class AmicablePairs {
     public static void main(String[] args) {
+
+        // A Java program that finds first two amicable pairs (Output: 1-> 220-284 2: 1184-1210) :
+
         int pairCount = 0;
         int number1 = 1;
 
-        while (pairCount < 3) {
+        while (pairCount < 2) {
             int number2 = getSumOfDivisors(number1);
             if (number2 > number1 && number1 == getSumOfDivisors(number2)) {
                 System.out.println("Amicable Pair " + (pairCount + 1) + ": " + number1 + " - " + number2);
