@@ -17,8 +17,8 @@ public class ProductsController {
     }
 
     @PostMapping
-    public String add(@RequestBody Products products){
-        productsList.add(products);
-        return "Added";
+    public String add(@RequestBody Products product){
+        productsList.add(product);
+        return "Product added";
     }
 }
