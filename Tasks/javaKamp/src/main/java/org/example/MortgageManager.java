@@ -6,8 +6,4 @@ public class MortgageManager implements CreditManager{
         System.out.println("Mortgage Kredi Hesaplandı");
     }
 
-    @Override
-    public void add() {
-
-    }
 }

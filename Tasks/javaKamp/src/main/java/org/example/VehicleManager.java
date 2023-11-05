@@ -5,8 +5,4 @@ public class VehicleManager implements CreditManager{
         System.out.println("Vehicle Kredi Hesaplandı");
     }
 
-    @Override
-    public void add() {
-
-    }
 }

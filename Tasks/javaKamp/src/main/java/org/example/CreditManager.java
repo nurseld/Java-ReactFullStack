@@ -1,11 +1,8 @@
 package org.example;
 
 interface CreditManager  {
-    public void calculate(){
+    public static void calculate(){
         System.out.println("Kredi Hesaplandı");
     }
 
-    public void add(){
-        System.out.println("Kredi Eklendi");
-    }
 }
