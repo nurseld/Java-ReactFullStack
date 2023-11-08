@@ -1,4 +1,5 @@
---   1. Product isimlerini (`ProductName`) ve birim başına miktar (`QuantityPerUnit`) 
+
+--   1. Product isimlerini (`ProductName`) ve birim başına miktar (`QuantityPerUnit`)
 --   değerlerini almak için sorgu yazın.
 
 SELECT product_name,quantity_per_unit
