@@ -1,9 +1,14 @@
-package com.tobeto.rentalcardemo.entities;
+package com.tobeto.rentalcardemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(name = "telephones")
 @Entity
+@Getter
+@Setter
 public class Telephone {
 
     @Id
@@ -14,10 +19,11 @@ public class Telephone {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "value")
+    @Column(name = "value",unique = true)
     private String phoneNumber;
 
     @ManyToOne
+    @JsonIgnoreProperties("telephone")
     @JoinColumn(name = "customer_id")
     private Customer customer;
 

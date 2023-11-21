@@ -1,15 +1,20 @@
-package com.tobeto.rentalcardemo.entities;
+package com.tobeto.rentalcardemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Table(name = "addresses")
 @Entity
+@Getter
+@Setter
 public class Address {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int addressId;
+    private Integer addressId;
 
     @Column(name = "location_name")
     private String locationName;
@@ -30,11 +35,13 @@ public class Address {
     private String postCode;
 
     @ManyToOne
+    @JsonIgnoreProperties("address")
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id",unique = true)
+
+    @JsonIgnoreProperties("address")
+    @OneToOne(mappedBy = "address")
     private Car car;
 
 

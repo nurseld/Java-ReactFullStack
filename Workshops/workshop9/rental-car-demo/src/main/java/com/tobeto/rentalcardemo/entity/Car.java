@@ -1,18 +1,23 @@
-package com.tobeto.rentalcardemo.entities;
+package com.tobeto.rentalcardemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
+
 @Table(name = "cars")
 @Entity
+@Getter
+@Setter
 public class Car {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+    private Integer id;
 
     @Column(name = "brand")
     private String brandName;
@@ -32,10 +37,14 @@ public class Car {
     @Column(name = "price")
     private double dailyPrice;
 
+    @JsonIgnoreProperties("car")
     @OneToMany(mappedBy = "car")
-    private List<Reservation> reservation;
+    private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "car")
-    private List<Address> address;
+
+    @JsonIgnoreProperties("car")
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
 }

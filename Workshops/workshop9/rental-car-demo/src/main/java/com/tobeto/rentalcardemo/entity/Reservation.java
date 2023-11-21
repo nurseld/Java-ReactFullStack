@@ -1,11 +1,16 @@
-package com.tobeto.rentalcardemo.entities;
+package com.tobeto.rentalcardemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Table(name = "reservations")
 @Entity
+@Getter
+@Setter
 public class Reservation {
 
     @Id
@@ -22,14 +27,17 @@ public class Reservation {
     @Column(name = "status")
     private String reservationStatus;
 
-    @ManyToOne()
+    @ManyToOne
+    @JsonIgnoreProperties("reservation")
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne()
+    @JsonIgnoreProperties("reservation")
     @JoinColumn(name = "car_id")
     private Car car;
 
+    @JsonIgnoreProperties("reservation")
     @OneToOne(mappedBy = "reservation")
     private Invoice invoice;
 }
