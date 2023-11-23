@@ -1,8 +1,9 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.dto.ReservationRequest;
-import com.tobeto.rentalcardemo.entity.Reservation;
-import com.tobeto.rentalcardemo.repository.ReservationRepository;
+import com.tobeto.rentalcardemo.services.abstracts.ReservationService;
+import com.tobeto.rentalcardemo.services.dto.reservation.requests.AddReservationRequest;
+import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservationResponse;
+import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,48 +12,40 @@ import java.util.List;
 @RequestMapping("/reservations")
 public class ReservationController {
 
-    private final ReservationRepository reservationRepository;
+    private final ReservationService reservationService;
 
-    public ReservationController(ReservationRepository reservationRepository) {
-        this.reservationRepository = reservationRepository;
+    public ReservationController(ReservationService reservationService) {
+        this.reservationService = reservationService;
     }
 
-    @PostMapping
-    public String create(@RequestBody Reservation reservation){
 
-        reservationRepository.save(reservation);
-        return "Reservation has been saved to DB.";
+    @PostMapping
+    public AddReservationResponse add(@RequestBody AddReservationRequest request){
+
+        return reservationService.add(request);
     }
 
     @GetMapping
-    public List<Reservation> getAll(){
+    public List<GetAllReservationResponse> getAll(){
 
-        return reservationRepository.findAll();
+        return reservationService.getAll();
     }
 
     @GetMapping("/{reservationId}")
-    public Reservation getById(@RequestParam Integer reservationId){
+    public GetAllReservationResponse getById(@PathVariable Integer reservationId){
 
-        return reservationRepository.findById(reservationId)
-                .orElseThrow(() -> new RuntimeException("Reservation does not exist."));
+        return reservationService.getById(reservationId);
     }
 
     @DeleteMapping("/{reservationId}")
-    public void delete(@RequestParam Integer reservationId){
+    public void delete(@PathVariable Integer reservationId){
 
-        reservationRepository.deleteById(reservationId);
+        reservationService.delete(reservationId);
     }
 
-    @PutMapping
-    public void update(@RequestBody ReservationRequest request){
+    @PutMapping("/{reservationId}")
+    public void update(@PathVariable Integer reservationId, @RequestBody AddReservationRequest request){
 
-        Reservation reservationInDb = reservationRepository.findById(request.getReservationId())
-                .orElseThrow(()-> new RuntimeException("Reservation does not exist."));
-
-        reservationInDb.setReservationStatus(request.getReservationStatus());
-        reservationInDb.setPickUpDate(request.getPickUpDate());
-        reservationInDb.setDropOffDate(request.getDropOffDate());
-
-        reservationRepository.save(reservationInDb);
+        reservationService.update(reservationId,request);
     }
 }

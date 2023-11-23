@@ -39,7 +39,6 @@ public class Address {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-
     @JsonIgnoreProperties("address")
     @OneToOne(mappedBy = "address")
     private Car car;

@@ -1,8 +1,9 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.dto.AddressRequest;
-import com.tobeto.rentalcardemo.entity.Address;
-import com.tobeto.rentalcardemo.repository.AddressRepository;
+import com.tobeto.rentalcardemo.services.abstracts.AddressService;
+import com.tobeto.rentalcardemo.services.dto.address.requests.AddAddressRequest;
+import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressResponse;
+import com.tobeto.rentalcardemo.services.dto.address.responses.GetAllAddressResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,51 +12,43 @@ import java.util.List;
 @RequestMapping("/addresses")
 public class AddressController {
 
-    private final AddressRepository addressRepository;
+    private final AddressService addressService;
 
-    public AddressController(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
     }
 
     @PostMapping
-    public String create(@RequestBody Address address){
+    public AddAddressResponse add(@RequestBody AddAddressRequest request){
 
-        addressRepository.save(address);
-        return "Address has been saved to DB.";
+        return addressService.add(request);
+
     }
-    @GetMapping
-    public List<Address> getAll(){
 
-        return addressRepository.findAll();
+
+    @GetMapping
+    public List<GetAllAddressResponse> getAlL(){
+
+        return addressService.getAll();
 
     }
 
     @GetMapping("/{addressId}")
-    public Address getById(@PathVariable Integer addressId){
+    public GetAllAddressResponse getById(@PathVariable Integer addressId){
 
-        return addressRepository.findById(addressId)
-                .orElseThrow(()->new RuntimeException("Address does not exist."));
+        return addressService.getById(addressId);
     }
 
     @DeleteMapping("/{addressId}")
     public void delete(@PathVariable Integer addressId){
 
-        addressRepository.deleteById(addressId);
+        addressService.delete(addressId);
     }
 
-    @PutMapping
-    public void update(@RequestBody AddressRequest request){
+    @PutMapping("/{addressId}")
+    public void update(@PathVariable Integer addressId, @RequestBody AddAddressRequest request){
 
-        Address addressInDb = addressRepository.findById(request.getAddressId())
-                .orElseThrow(() -> new RuntimeException("Address does not exist."));
-        addressInDb.setLocationName(request.getLocationName());
-        addressInDb.setCountryName(request.getCountryName());
-        addressInDb.setCityName(request.getCityName());
-        addressInDb.setDistrictName(request.getDistrictName());
-        addressInDb.setStreetName(request.getStreetName());
-        addressInDb.setPostCode(request.getPostCode());
-
-        addressRepository.save(addressInDb);
+        addressService.update(addressId,request);
 
     }
 }

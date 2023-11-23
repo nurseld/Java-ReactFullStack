@@ -1,8 +1,9 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.dto.CarRequest;
-import com.tobeto.rentalcardemo.entity.Car;
-import com.tobeto.rentalcardemo.repository.CarRepository;
+import com.tobeto.rentalcardemo.services.abstracts.CarService;
+import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
+import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
+import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,52 +12,40 @@ import java.util.List;
 @RequestMapping("/cars")
 public class CarController {
 
-    private final CarRepository carRepository;
+    private final CarService carService;
 
-    public CarController(CarRepository carRepository) {
-        this.carRepository = carRepository;
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 
-
     @PostMapping
-    public String create(@RequestBody Car car){
+    public AddCarResponse add(@RequestBody AddCarRequest request){
 
-        carRepository.save(car);
-        return "Car has been saved to DB.";
+        return carService.add(request);
     }
 
     @GetMapping
-    public List<Car> getAll(){
+    public List<GetAllCarResponse> getAll(){
 
-        return carRepository.findAll();
+        return carService.getAll();
     }
 
     @GetMapping("/{carId}")
-    public Car getById(@RequestParam Integer carId){
+    public GetAllCarResponse getById(@PathVariable Integer carId){
 
-        return carRepository.findById(carId)
-                .orElseThrow(() -> new RuntimeException("Car does not exist."));
+        return carService.getById(carId);
+
     }
 
     @DeleteMapping("/{carId}")
-    public void delete(@RequestParam Integer carId){
+    public void delete(@PathVariable  Integer carId){
 
-        carRepository.deleteById(carId);
+        carService.delete(carId);
     }
 
-    @PutMapping
-    public void update(@RequestBody CarRequest request){
+    @PutMapping("/{carId}")
+    public void update(@PathVariable Integer carId, @RequestBody AddCarRequest request){
 
-        Car carInDb = carRepository.findById(request.getId())
-                .orElseThrow(()-> new RuntimeException("Car does not exist."));
-
-        carInDb.setBrandName(request.getBrandName());
-        carInDb.setModelName(request.getModelName());
-        carInDb.setModelYear(request.getModelYear());
-        carInDb.setFuelType(request.getFuelType());
-        carInDb.setGearType(request.getGearType());
-        carInDb.setDailyPrice(request.getDailyPrice());
-
-        carRepository.save(carInDb);
+        carService.update(carId,request);
     }
 }

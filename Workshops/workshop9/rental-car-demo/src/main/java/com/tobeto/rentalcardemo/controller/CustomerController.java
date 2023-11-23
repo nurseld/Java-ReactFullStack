@@ -1,8 +1,9 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.dto.CustomerRequest;
-import com.tobeto.rentalcardemo.entity.Customer;
-import com.tobeto.rentalcardemo.repository.CustomerRepository;
+import com.tobeto.rentalcardemo.services.abstracts.CustomerService;
+import com.tobeto.rentalcardemo.services.dto.customer.requests.AddCustomerRequest;
+import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerResponse;
+import com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,50 +12,40 @@ import java.util.List;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    public CustomerController(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @PostMapping
-    public String create(@RequestBody Customer customer){
 
-        customerRepository.save(customer);
-        return "Customer has been saved to DB.";
+    @PostMapping
+    public AddCustomerResponse add(@RequestBody AddCustomerRequest request){
+
+        return customerService.add(request);
     }
 
     @GetMapping("/{customerId}")
-    public Customer getById(@PathVariable Integer customerId){
+    public GetAllCustomerResponse getById(@PathVariable Integer customerId){
 
-        return customerRepository.findById(customerId)
-                .orElseThrow(()-> new RuntimeException("Customer does not exist."));
+        return customerService.getById(customerId);
     }
 
     @GetMapping
-    public List<Customer> getAll(){
+    public List<GetAllCustomerResponse> getAll(){
 
-        return customerRepository.findAll();
+        return customerService.getAll();
 
     }
     @DeleteMapping("/{customerId}")
     public void delete(@PathVariable Integer customerId){
 
-        customerRepository.deleteById(customerId);
+        customerService.delete(customerId);
     }
 
-    @PutMapping
-    public void update(@RequestBody CustomerRequest request){
+    @PutMapping("/{customerId}")
+    public void update(@PathVariable Integer customerId, @RequestBody AddCustomerRequest request){
 
-        Customer customerInDb = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(() -> new RuntimeException("Customer does not exist."));
-
-        customerInDb.setFirstName(request.getFirstName());
-        customerInDb.setMiddleName(request.getMiddleName());
-        customerInDb.setSurName(request.getSurName());
-        customerInDb.setAge(request.getAge());
-        customerInDb.setCitizenShipId(request.getCitizenShipId());
-
-        customerRepository.save(customerInDb);
+        customerService.update(customerId,request);
     }
 }

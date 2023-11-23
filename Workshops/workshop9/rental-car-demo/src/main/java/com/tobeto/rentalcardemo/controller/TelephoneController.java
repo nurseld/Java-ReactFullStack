@@ -1,8 +1,10 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.entity.Telephone;
-import com.tobeto.rentalcardemo.repository.CustomerRepository;
-import com.tobeto.rentalcardemo.repository.TelephoneRepository;
+import com.tobeto.rentalcardemo.services.abstracts.TelephoneService;
+import com.tobeto.rentalcardemo.services.dto.telephone.requests.AddTelephoneRequest;
+import com.tobeto.rentalcardemo.services.dto.telephone.requests.UpdateTelephoneRequest;
+import com.tobeto.rentalcardemo.services.dto.telephone.responses.AddTelephoneResponse;
+import com.tobeto.rentalcardemo.services.dto.telephone.responses.GetAllTelephoneResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,50 +13,41 @@ import java.util.List;
 @RequestMapping("/telephones")
 public class TelephoneController {
 
-    private final TelephoneRepository telephoneRepository;
-    private final CustomerRepository customerRepository;
+    private final TelephoneService telephoneService;
 
-    public TelephoneController(TelephoneRepository telephoneRepository, CustomerRepository customerRepository) {
-        this.telephoneRepository = telephoneRepository;
-        this.customerRepository = customerRepository;
+    public TelephoneController(TelephoneService telephoneService) {
+        this.telephoneService = telephoneService;
     }
 
-    @PostMapping
-    public String create(@RequestBody Telephone telephone){
 
-       telephoneRepository.save(telephone);
-        return "Telephone number has been saved to DB.";
+    @PostMapping
+    public AddTelephoneResponse add(@RequestBody AddTelephoneRequest request){
+
+       return telephoneService.add(request);
     }
 
     @GetMapping
-    public List<Telephone> getAll(){
+    public List<GetAllTelephoneResponse> getAll(){
 
-        return telephoneRepository.findAll();
+        return telephoneService.getAll();
     }
 
     @GetMapping("/{telephoneId}")
-    public Telephone getById(@RequestParam Integer telephoneId){
+    public GetAllTelephoneResponse getById(@PathVariable Integer telephoneId){
 
-        return telephoneRepository.findById(telephoneId)
-                .orElseThrow(() -> new RuntimeException("Telephone does not exist."));
+        return telephoneService.getById(telephoneId);
     }
 
     @DeleteMapping("/{telephoneId}")
-    public void delete(@RequestParam Integer telephoneId){
+    public void delete(@PathVariable Integer telephoneId){
 
-        telephoneRepository.deleteById(telephoneId);
+        telephoneService.delete(telephoneId);
     }
 
 
-    @PutMapping("/{telephoneId}")
-    public void update(@PathVariable Integer telephoneId, @RequestParam String description, @RequestParam String phoneNumber){
+    @PutMapping
+    public void update(@RequestBody UpdateTelephoneRequest request){
 
-        Telephone telephoneInDb = telephoneRepository.findById(telephoneId)
-                .orElseThrow(()-> new RuntimeException("Telephone does not exist."));
-
-        telephoneInDb.setDescription(description);
-        telephoneInDb.setPhoneNumber(phoneNumber);
-
-        telephoneRepository.save(telephoneInDb);
+        telephoneService.update(request);
     }
 }
