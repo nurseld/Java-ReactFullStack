@@ -96,4 +96,17 @@ public class CustomerManager implements CustomerService {
 
         customerRepository.save(customer);
     }
+
+    @Override
+    public List<Customer> getByAge(Integer age) {
+
+        return customerRepository.findByAgeGreaterThan(age);
+    }
+
+    @Override
+    public List<GetAllCustomerResponse> getLastName(String lastName) {
+
+        return customerRepository.findLastName(lastName);
+    }
+
 }

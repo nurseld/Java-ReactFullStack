@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.entity.Customer;
 import com.tobeto.rentalcardemo.services.abstracts.CustomerService;
 import com.tobeto.rentalcardemo.services.dto.customer.requests.AddCustomerRequest;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerResponse;
@@ -47,5 +48,17 @@ public class CustomerController {
     public void update(@PathVariable Integer customerId, @RequestBody AddCustomerRequest request){
 
         customerService.update(customerId,request);
+    }
+
+    @GetMapping("age")
+    public List<Customer> getByAge(@RequestParam Integer age){
+
+        return customerService.getByAge(age);
+    }
+
+    @GetMapping("lastName")
+    public List<GetAllCustomerResponse> getByLastName(@RequestParam String lastName){
+
+        return customerService.getLastName(lastName);
     }
 }

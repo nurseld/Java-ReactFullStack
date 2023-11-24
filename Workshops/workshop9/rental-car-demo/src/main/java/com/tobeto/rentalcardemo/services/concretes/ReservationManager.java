@@ -8,6 +8,7 @@ import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservatio
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,5 +92,17 @@ public class ReservationManager implements ReservationService {
 
         reservationRepository.save(reservation);
 
+    }
+
+    @Override
+    public List<Reservation> getReservationStatus(String status) {
+
+        return reservationRepository.findByReservationStatus(status);
+    }
+
+    @Override
+    public List<GetAllReservationResponse> getDropOffDateBefore(LocalDate dropOffDate) {
+
+        return reservationRepository.findDropOffDateBefore(dropOffDate);
     }
 }

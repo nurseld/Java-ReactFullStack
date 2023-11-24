@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.services.abstracts;
 
+import com.tobeto.rentalcardemo.entity.Car;
 import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
 import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
 import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
@@ -16,6 +17,6 @@ public interface CarService {
     void delete(Integer carId);
 
     void update(Integer carId, AddCarRequest request);
-
-
+    List<GetAllCarResponse> getModelYear(String modelYear);
+    List<Car> getModelName(String modelName);
 }

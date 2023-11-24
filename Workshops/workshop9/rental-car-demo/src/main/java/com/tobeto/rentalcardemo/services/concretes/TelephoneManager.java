@@ -89,4 +89,16 @@ public class TelephoneManager implements TelephoneService {
         telephoneRepository.save(telephoneInDb);
 
     }
+
+    @Override
+    public List<Telephone> getDescription(String description) {
+
+        return telephoneRepository.findByDescription(description);
+    }
+
+    @Override
+    public List<GetAllTelephoneResponse> getDetailPhone(String phoneNumber) {
+
+        return telephoneRepository.findDetailPhone(phoneNumber);
+    }
 }

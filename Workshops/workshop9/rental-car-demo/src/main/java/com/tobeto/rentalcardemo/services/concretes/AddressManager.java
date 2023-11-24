@@ -102,6 +102,18 @@ public class AddressManager implements AddressService {
         addressRepository.save(address);
     }
 
+    @Override
+    public List<GetAllAddressResponse> getByCityName(String cityName) {
+
+        return addressRepository.getByCityName(cityName);
+    }
+
+    @Override
+    public List<Address> getDistrictName(String districtName) {
+
+        return addressRepository.findByDistrictNameStartingWith(districtName);
+    }
+
 
 }
 

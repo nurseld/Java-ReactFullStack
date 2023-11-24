@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.entity.Address;
 import com.tobeto.rentalcardemo.services.abstracts.AddressService;
 import com.tobeto.rentalcardemo.services.dto.address.requests.AddAddressRequest;
 import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressResponse;
@@ -51,4 +52,19 @@ public class AddressController {
         addressService.update(addressId,request);
 
     }
+
+    @GetMapping("cityName")
+    public List<GetAllAddressResponse> getByCityName(@RequestParam String cityName){
+
+        return addressService.getByCityName(cityName);
+
+    }
+
+    @GetMapping("districtName")
+    public List<Address> getBydDistrict(@RequestParam String districtName){
+
+        return addressService.getDistrictName(districtName);
+    }
+
+
 }

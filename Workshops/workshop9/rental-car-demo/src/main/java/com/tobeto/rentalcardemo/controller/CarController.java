@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.entity.Car;
 import com.tobeto.rentalcardemo.services.abstracts.CarService;
 import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
 import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
@@ -48,4 +49,17 @@ public class CarController {
 
         carService.update(carId,request);
     }
+
+    @GetMapping("modelYear")
+    public List<GetAllCarResponse> getModelYear(@RequestParam String modelYear){
+
+        return carService.getModelYear(modelYear);
+    }
+
+
+    @GetMapping("modelName")
+    public List<Car> getModelName(@RequestParam String modelName){
+
+        return carService.getModelName(modelName);
+  }
 }

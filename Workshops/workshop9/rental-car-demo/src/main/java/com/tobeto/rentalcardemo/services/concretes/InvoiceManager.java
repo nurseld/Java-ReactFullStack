@@ -29,6 +29,7 @@ public class InvoiceManager implements InvoiceService {
 
         invoice.setPaymentMethod(request.getPaymentMethod());
         invoice.setTotalPrice(request.getTotalPrice());
+        invoice.setPaymentDateTime(request.getPaymentDateTime());
 
         Invoice savedInvoice = invoiceRepository.save(invoice);
         AddInvoiceResponse response = new AddInvoiceResponse();
@@ -48,6 +49,7 @@ public class InvoiceManager implements InvoiceService {
 
             response.setPaymentMethod(invoice.getPaymentMethod());
             response.setTotalPrice(invoice.getTotalPrice());
+            response.setPaymentDateTime(invoice.getPaymentDateTime());
 
             responses.add(response);
         }
@@ -64,6 +66,7 @@ public class InvoiceManager implements InvoiceService {
 
         response.setTotalPrice(invoiceInDb.getTotalPrice());
         response.setPaymentMethod(invoiceInDb.getPaymentMethod());
+        response.setPaymentDateTime(invoiceInDb.getPaymentDateTime());
 
         return response;
     }
@@ -77,11 +80,26 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public void update(Integer invoiceId, AddInvoiceRequest request) {
 
-        Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(()-> new RuntimeException("Invoice does not exist."));
+        Invoice invoice = invoiceRepository.findById(invoiceId)
+                .orElseThrow(()-> new RuntimeException("Invoice does not exist."));
 
         invoice.setTotalPrice(request.getTotalPrice());
         invoice.setPaymentMethod(request.getPaymentMethod());
+        invoice.setPaymentDateTime(request.getPaymentDateTime());
+
 
         invoiceRepository.save(invoice);
+    }
+
+    @Override
+    public List<Invoice> getGreaterTotalPrice(double totalPrice) {
+
+        return invoiceRepository.findByTotalPriceGreaterThanEqual(totalPrice) ;
+    }
+
+    @Override
+    public List<GetAllInvoiceResponse> getPaymentMethod(String paymentMethod) {
+
+        return invoiceRepository.findByPaymentMethod(paymentMethod) ;
     }
 }

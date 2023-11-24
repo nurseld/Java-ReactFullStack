@@ -104,4 +104,19 @@ public class CarManager implements CarService {
 
         carRepository.save(car);
     }
+
+    @Override
+    public List<GetAllCarResponse> getModelYear(String modelYear) {
+
+        return carRepository.findModelYear(modelYear);
+
+    }
+
+    @Override
+    public List<Car> getModelName(String modelName) {
+
+        return carRepository.findByModelName(modelName);
+    }
+
+
 }

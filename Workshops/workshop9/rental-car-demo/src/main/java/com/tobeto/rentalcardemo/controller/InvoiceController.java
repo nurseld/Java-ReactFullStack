@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.entity.Invoice;
 import com.tobeto.rentalcardemo.services.abstracts.InvoiceService;
 import com.tobeto.rentalcardemo.services.dto.invoice.requests.AddInvoiceRequest;
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.AddInvoiceResponse;
@@ -37,18 +38,34 @@ public class InvoiceController {
     public GetAllInvoiceResponse getById(@PathVariable Integer invoiceId){
 
         return invoiceService.getById(invoiceId);
+
     }
 
     @DeleteMapping("/{invoiceId}")
     public void delete(@PathVariable Integer invoiceId){
 
         invoiceService.delete(invoiceId);
+
     }
 
     @PutMapping("/{invoiceId}")
     public void update(@PathVariable Integer invoiceId, @RequestBody AddInvoiceRequest request){
 
         invoiceService.update(invoiceId,request);
+
+    }
+
+    @GetMapping("totalPrice")
+    public List<Invoice> getGreaterTotalPrice(@RequestParam double totalPrice){
+
+        return invoiceService.getGreaterTotalPrice(totalPrice);
+
+    }
+
+    @GetMapping("paymentMethod")
+    public List<GetAllInvoiceResponse> getPaymentMethod(@RequestParam String paymentMethod){
+
+        return invoiceService.getPaymentMethod(paymentMethod);
 
     }
 }

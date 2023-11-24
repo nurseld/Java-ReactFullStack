@@ -1,5 +1,6 @@
 package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.entity.Telephone;
 import com.tobeto.rentalcardemo.services.abstracts.TelephoneService;
 import com.tobeto.rentalcardemo.services.dto.telephone.requests.AddTelephoneRequest;
 import com.tobeto.rentalcardemo.services.dto.telephone.requests.UpdateTelephoneRequest;
@@ -49,5 +50,17 @@ public class TelephoneController {
     public void update(@RequestBody UpdateTelephoneRequest request){
 
         telephoneService.update(request);
+    }
+
+    @GetMapping("description")
+    public List<Telephone> getDescription(@RequestParam String description){
+
+        return telephoneService.getDescription(description);
+    }
+
+    @GetMapping("phoneNumber")
+    public List<GetAllTelephoneResponse> getDetailPhone(@RequestParam String phoneNumber){
+
+        return telephoneService.getDetailPhone(phoneNumber);
     }
 }
