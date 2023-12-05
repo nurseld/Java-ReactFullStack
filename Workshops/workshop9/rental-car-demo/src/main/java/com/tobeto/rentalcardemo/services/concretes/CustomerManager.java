@@ -8,7 +8,6 @@ import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerRespo
 import com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +40,7 @@ public class CustomerManager implements CustomerService {
     @Override
     public List<GetAllCustomerResponse> getAll() {
 
-        List<Customer> customerList = customerRepository.findAll();
+/*        List<Customer> customerList = customerRepository.findAll();
         List<GetAllCustomerResponse> responses = new ArrayList<>();
 
         for (Customer customer : customerList) {
@@ -57,7 +56,13 @@ public class CustomerManager implements CustomerService {
             responses.add(response);
         }
 
-        return responses;
+        return responses;*/
+
+        return customerRepository.findAll()
+                .stream()
+                .map((customer) -> new GetAllCustomerResponse(customer.getFirstName(), customer.getMiddleName(), customer.getSurName(), customer.getAge())).toList();
+
+
 
     }
 

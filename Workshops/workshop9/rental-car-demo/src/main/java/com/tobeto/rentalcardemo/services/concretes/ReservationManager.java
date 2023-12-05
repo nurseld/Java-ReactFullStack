@@ -9,7 +9,6 @@ import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReserva
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,7 +39,7 @@ public class ReservationManager implements ReservationService {
     @Override
     public List<GetAllReservationResponse> getAll() {
 
-        List<Reservation> reservationList = reservationRepository.findAll();
+/*        List<Reservation> reservationList = reservationRepository.findAll();
 
         List<GetAllReservationResponse> responses = new ArrayList<>();
 
@@ -56,7 +55,11 @@ public class ReservationManager implements ReservationService {
 
         }
 
-        return responses;
+        return responses;*/
+
+        return reservationRepository.findAll()
+                .stream()
+                .map(reservation -> new GetAllReservationResponse(reservation.getPickUpDate(),reservation.getDropOffDate(),reservation.getReservationStatus())).toList();
     }
 
     @Override

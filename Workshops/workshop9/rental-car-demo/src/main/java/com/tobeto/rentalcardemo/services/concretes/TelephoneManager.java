@@ -9,7 +9,6 @@ import com.tobeto.rentalcardemo.services.dto.telephone.responses.AddTelephoneRes
 import com.tobeto.rentalcardemo.services.dto.telephone.responses.GetAllTelephoneResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,7 +38,7 @@ public class TelephoneManager implements TelephoneService {
     @Override
     public List<GetAllTelephoneResponse> getAll() {
 
-        List<Telephone> telephoneList = telephoneRepository.findAll();
+/*        List<Telephone> telephoneList = telephoneRepository.findAll();
 
         List<GetAllTelephoneResponse> responses = new ArrayList<>();
 
@@ -54,7 +53,11 @@ public class TelephoneManager implements TelephoneService {
 
         }
 
-        return responses;
+        return responses;*/
+
+        return telephoneRepository.findAll()
+                .stream()
+                .map(telephone -> new GetAllTelephoneResponse(telephone.getDescription(), telephone.getPhoneNumber())).toList();
     }
 
     @Override

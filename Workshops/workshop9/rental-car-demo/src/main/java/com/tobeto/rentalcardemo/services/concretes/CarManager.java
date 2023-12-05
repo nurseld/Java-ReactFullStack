@@ -8,7 +8,6 @@ import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
 import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,7 +42,7 @@ public class CarManager implements CarService {
     @Override
     public List<GetAllCarResponse> getAll() {
 
-        List<Car> carList = carRepository.findAll();
+/*        List<Car> carList = carRepository.findAll();
         List<GetAllCarResponse> responses = new ArrayList<>();
 
         for (Car car : carList) {
@@ -61,7 +60,20 @@ public class CarManager implements CarService {
 
         }
 
-        return responses;
+        return responses;*/
+
+        return carRepository.findAll()
+                .stream()
+                .map(car -> new GetAllCarResponse(
+                        car.getBrandName(),
+                        car.getModelName(),
+                        car.getModelYear(),
+                        car.getGearType(),
+                        car.getFuelType(),
+                        car.getDailyPrice()
+                ))
+                .toList();
+
     }
 
     @Override
@@ -107,18 +119,6 @@ public class CarManager implements CarService {
 
     @Override
     public List<GetAllCarResponse> getModelYear(Integer modelYear) {
-
-          //return carRepository.findModelYear(modelYear);
-//       return carRepository.findAll()
-//                .stream()
-//                .filter(car -> car.getModelYear().equals(modelYear))
-//                .map(car -> new GetAllCarResponse(car.getBrandName(),
-//                        car.getModelName(),
-//                        car.getModelYear(),
-//                        car.getFuelType(),
-//                        car.getGearType(),
-//                        car.getDailyPrice()))
-//                .toList();
 
         return carRepository.findModelYear(modelYear)
                 .stream()

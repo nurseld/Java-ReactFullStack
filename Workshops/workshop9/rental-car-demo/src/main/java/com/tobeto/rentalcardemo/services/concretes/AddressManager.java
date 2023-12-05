@@ -8,7 +8,6 @@ import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressRespons
 import com.tobeto.rentalcardemo.services.dto.address.responses.GetAllAddressResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,7 +39,7 @@ public class AddressManager implements AddressService {
 
     @Override
     public List<GetAllAddressResponse> getAll() {
-
+/*
        List<Address> addressList = addressRepository.findAll();
        List<GetAllAddressResponse> responses = new ArrayList<>();
 
@@ -58,7 +57,17 @@ public class AddressManager implements AddressService {
             responses.add(response);
         }
 
-       return responses;
+       return responses;*/
+        return addressRepository.findAll()
+                .stream()
+                .map(address -> new GetAllAddressResponse(address.getAddressId(),
+                        address.getCityName(),
+                        address.getLocationName(),
+                        address.getCountryName(),
+                        address.getDistrictName(),
+                        address.getStreetName(),
+                        address.getPostCode()))
+                .toList();
 
     }
 

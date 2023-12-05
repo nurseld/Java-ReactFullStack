@@ -8,7 +8,6 @@ import com.tobeto.rentalcardemo.services.dto.invoice.responses.AddInvoiceRespons
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.GetAllInvoiceResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -40,7 +39,7 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public List<GetAllInvoiceResponse> getAll() {
 
-        List<Invoice> invoiceList = invoiceRepository.findAll();
+/*        List<Invoice> invoiceList = invoiceRepository.findAll();
         List<GetAllInvoiceResponse> responses = new ArrayList<>();
 
         for (Invoice invoice:invoiceList) {
@@ -53,7 +52,11 @@ public class InvoiceManager implements InvoiceService {
 
             responses.add(response);
         }
-        return responses;
+        return responses;*/
+
+        return invoiceRepository.findAll()
+                .stream()
+                .map(invoice -> new GetAllInvoiceResponse(invoice.getTotalPrice(), invoice.getPaymentDateTime(), invoice.getPaymentMethod())).toList();
     }
 
     @Override
