@@ -100,6 +100,13 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public List<GetAllInvoiceResponse> getPaymentMethod(String paymentMethod) {
 
-        return invoiceRepository.findByPaymentMethod(paymentMethod) ;
+       // return invoiceRepository.findByPaymentMethod(paymentMethod) ;
+        List<Invoice> invoiceList = invoiceRepository.findAll();
+        return invoiceList.stream()
+                .filter(invoice -> invoice.getPaymentMethod().equals(paymentMethod))
+                .map(invoice -> new GetAllInvoiceResponse(invoice.getTotalPrice(),
+                        invoice.getPaymentDateTime(),
+                        invoice.getPaymentMethod()))
+                .toList();
     }
 }

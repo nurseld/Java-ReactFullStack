@@ -28,7 +28,7 @@ public class Customer {
     private String surName;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     @Column(name = "citizenship_id")
     private String citizenShipId;

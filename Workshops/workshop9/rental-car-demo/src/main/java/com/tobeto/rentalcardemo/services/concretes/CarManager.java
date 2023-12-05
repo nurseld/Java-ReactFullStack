@@ -106,10 +106,30 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public List<GetAllCarResponse> getModelYear(String modelYear) {
+    public List<GetAllCarResponse> getModelYear(Integer modelYear) {
 
-        return carRepository.findModelYear(modelYear);
+          //return carRepository.findModelYear(modelYear);
+//       return carRepository.findAll()
+//                .stream()
+//                .filter(car -> car.getModelYear().equals(modelYear))
+//                .map(car -> new GetAllCarResponse(car.getBrandName(),
+//                        car.getModelName(),
+//                        car.getModelYear(),
+//                        car.getFuelType(),
+//                        car.getGearType(),
+//                        car.getDailyPrice()))
+//                .toList();
 
+        return carRepository.findModelYear(modelYear)
+                .stream()
+                .map((car) -> {
+                    return new GetAllCarResponse(car.getBrandName(),
+                            car.getModelName(),
+                            car.getModelYear(),
+                            car.getFuelType(),
+                            car.getGearType(),
+                            car.getDailyPrice());
+                }).toList();
     }
 
     @Override

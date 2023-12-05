@@ -99,6 +99,9 @@ public class TelephoneManager implements TelephoneService {
     @Override
     public List<GetAllTelephoneResponse> getDetailPhone(String phoneNumber) {
 
-        return telephoneRepository.findDetailPhone(phoneNumber);
+        //return telephoneRepository.findDetailPhone(phoneNumber);
+        List<Telephone> telephonesList = telephoneRepository.findAll();
+        return telephonesList.stream().filter(telephone -> telephone.getPhoneNumber().contains(phoneNumber))
+                .map(telephone -> new GetAllTelephoneResponse(telephone.getDescription(),telephone.getPhoneNumber())).toList();
     }
 }

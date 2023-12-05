@@ -13,6 +13,6 @@ public interface CarRepository extends JpaRepository <Car,Integer>{
 
     @Query("Select new com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse(c.brandName,c.modelName,c.modelYear,c.fuelType,c.gearType,c.dailyPrice)" +
             " FROM Car c WHERE c.modelYear = :modelYear")
-    List<GetAllCarResponse> findModelYear(String modelYear);
+    List<GetAllCarResponse> findModelYear(Integer modelYear);
     List<Car> findByModelName(String modelName);
 }

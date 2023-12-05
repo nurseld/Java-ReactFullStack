@@ -101,12 +101,21 @@ public class CustomerManager implements CustomerService {
     public List<Customer> getByAge(Integer age) {
 
         return customerRepository.findByAgeGreaterThan(age);
+
     }
 
     @Override
     public List<GetAllCustomerResponse> getLastName(String lastName) {
 
-        return customerRepository.findLastName(lastName);
+       // return customerRepository.findLastName(lastName);
+        List<Customer> customerList = customerRepository.findAll();
+        return customerList.stream()
+                .filter(customer -> customer.getSurName().equals(lastName))
+                .map(customer -> new GetAllCustomerResponse(customer.getFirstName(),
+                        customer.getMiddleName(),
+                        customer.getSurName(),
+                        customer.getAge()))
+                .toList();
     }
 
 }

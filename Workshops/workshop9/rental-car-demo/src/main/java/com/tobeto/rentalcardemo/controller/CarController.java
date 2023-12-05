@@ -51,7 +51,7 @@ public class CarController {
     }
 
     @GetMapping("modelYear")
-    public List<GetAllCarResponse> getModelYear(@RequestParam String modelYear){
+    public List<GetAllCarResponse> getModelYear(@RequestParam Integer modelYear){
 
         return carService.getModelYear(modelYear);
     }

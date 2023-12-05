@@ -18,4 +18,5 @@ public interface AddressService {
     void update(Integer addressId, AddAddressRequest request);
     List<GetAllAddressResponse> getByCityName(String cityName);
     List<Address> getDistrictName(String districtName);
+    List<GetAllAddressResponse> getByStreetName();
 }

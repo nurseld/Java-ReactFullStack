@@ -103,6 +103,11 @@ public class ReservationManager implements ReservationService {
     @Override
     public List<GetAllReservationResponse> getDropOffDateBefore(LocalDate dropOffDate) {
 
-        return reservationRepository.findDropOffDateBefore(dropOffDate);
+        //return reservationRepository.findDropOffDateBefore(dropOffDate);
+        return reservationRepository.findDropOffDateBefore(dropOffDate).stream()
+                .map(reservation -> new GetAllReservationResponse(reservation.getPickUpDate(),
+                        reservation.getDropOffDate(),
+                        reservation.getReservationStatus()))
+                .toList();
     }
 }

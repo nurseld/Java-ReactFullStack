@@ -105,13 +105,41 @@ public class AddressManager implements AddressService {
     @Override
     public List<GetAllAddressResponse> getByCityName(String cityName) {
 
-        return addressRepository.getByCityName(cityName);
+       // return addressRepository.findByCityName(cityName);
+
+        return addressRepository.findAll()
+                .stream()
+                .filter((address -> address.getCityName().equals(cityName)))
+                .map((address -> new GetAllAddressResponse(address.getAddressId(),
+                        address.getCityName(),
+                        address.getLocationName(),
+                        address.getCountryName(),
+                        address.getDistrictName(),
+                        address.getStreetName(),
+                        address.getPostCode())))
+                .toList();
+
+
     }
 
     @Override
     public List<Address> getDistrictName(String districtName) {
 
         return addressRepository.findByDistrictNameStartingWith(districtName);
+    }
+
+    @Override
+    public List<GetAllAddressResponse> getByStreetName() {
+
+        return addressRepository.findByStreetName().stream().map((address) -> {
+            return new GetAllAddressResponse(address.getId(),
+                    address.getCityName(),
+                    address.getLocationName(),
+                    address.getCountryName(),
+                    address.getDistrictName(),
+                    address.getStreetName(),
+                    address.getPostCode());})
+                .toList();
     }
 
 

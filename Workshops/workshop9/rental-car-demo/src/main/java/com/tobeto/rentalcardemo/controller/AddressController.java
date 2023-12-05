@@ -53,18 +53,23 @@ public class AddressController {
 
     }
 
-    @GetMapping("cityName")
+    @GetMapping("/cityName")
     public List<GetAllAddressResponse> getByCityName(@RequestParam String cityName){
 
         return addressService.getByCityName(cityName);
 
     }
 
-    @GetMapping("districtName")
+    @GetMapping("/districtName")
     public List<Address> getBydDistrict(@RequestParam String districtName){
 
         return addressService.getDistrictName(districtName);
     }
 
+    @GetMapping("/streetName")
+    public List<GetAllAddressResponse> getByStreetName(){
+
+        return addressService.getByStreetName();
+    }
 
 }
