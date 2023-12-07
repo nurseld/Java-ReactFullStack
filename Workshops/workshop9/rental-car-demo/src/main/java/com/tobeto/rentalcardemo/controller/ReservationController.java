@@ -5,6 +5,7 @@ import com.tobeto.rentalcardemo.services.abstracts.ReservationService;
 import com.tobeto.rentalcardemo.services.dto.reservation.requests.AddReservationRequest;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservationResponse;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class ReservationController {
 
 
     @PostMapping
-    public AddReservationResponse add(@RequestBody AddReservationRequest request){
+    public AddReservationResponse add(@RequestBody @Valid AddReservationRequest request){
 
         return reservationService.add(request);
     }

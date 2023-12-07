@@ -13,9 +13,7 @@ public interface CarService {
     AddCarResponse add(AddCarRequest request);
     List<GetAllCarResponse> getAll();
     GetAllCarResponse getById(Integer carId);
-
     void delete(Integer carId);
-
     void update(Integer carId, AddCarRequest request);
     List<GetAllCarResponse> getModelYear(Integer modelYear);
     List<Car> getModelName(String modelName);

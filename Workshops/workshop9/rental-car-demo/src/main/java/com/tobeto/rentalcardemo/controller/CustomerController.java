@@ -5,6 +5,7 @@ import com.tobeto.rentalcardemo.services.abstracts.CustomerService;
 import com.tobeto.rentalcardemo.services.dto.customer.requests.AddCustomerRequest;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerResponse;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CustomerController {
 
 
     @PostMapping
-    public AddCustomerResponse add(@RequestBody AddCustomerRequest request){
+    public AddCustomerResponse add(@RequestBody @Valid AddCustomerRequest request){
 
         return customerService.add(request);
     }

@@ -6,6 +6,7 @@ import com.tobeto.rentalcardemo.services.dto.telephone.requests.AddTelephoneRequ
 import com.tobeto.rentalcardemo.services.dto.telephone.requests.UpdateTelephoneRequest;
 import com.tobeto.rentalcardemo.services.dto.telephone.responses.AddTelephoneResponse;
 import com.tobeto.rentalcardemo.services.dto.telephone.responses.GetAllTelephoneResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class TelephoneController {
 
 
     @PostMapping
-    public AddTelephoneResponse add(@RequestBody AddTelephoneRequest request){
+    public AddTelephoneResponse add(@RequestBody @Valid AddTelephoneRequest request){
 
        return telephoneService.add(request);
     }

@@ -5,6 +5,7 @@ import com.tobeto.rentalcardemo.services.abstracts.AddressService;
 import com.tobeto.rentalcardemo.services.dto.address.requests.AddAddressRequest;
 import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressResponse;
 import com.tobeto.rentalcardemo.services.dto.address.responses.GetAllAddressResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class AddressController {
     }
 
     @PostMapping
-    public AddAddressResponse add(@RequestBody AddAddressRequest request){
+    public AddAddressResponse add(@RequestBody @Valid AddAddressRequest request){
 
         return addressService.add(request);
 

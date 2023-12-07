@@ -22,4 +22,5 @@ public class GetAllAddressResponse {
     private String streetName;
 
     private String postCode;
+
 }

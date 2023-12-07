@@ -5,6 +5,7 @@ import com.tobeto.rentalcardemo.services.abstracts.CarService;
 import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
 import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
 import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class CarController {
     }
 
     @PostMapping
-    public AddCarResponse add(@RequestBody AddCarRequest request){
+    public AddCarResponse add(@RequestBody @Valid AddCarRequest request){
 
         return carService.add(request);
     }
