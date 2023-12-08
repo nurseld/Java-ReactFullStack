@@ -3,6 +3,7 @@ package com.tobeto.rentalcardemo.controller;
 import com.tobeto.rentalcardemo.entity.Invoice;
 import com.tobeto.rentalcardemo.services.abstracts.InvoiceService;
 import com.tobeto.rentalcardemo.services.dto.invoice.requests.AddInvoiceRequest;
+import com.tobeto.rentalcardemo.services.dto.invoice.requests.UpdateInvoiceRequest;
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.AddInvoiceResponse;
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.GetAllInvoiceResponse;
 import jakarta.validation.Valid;
@@ -50,7 +51,7 @@ public class InvoiceController {
     }
 
     @PutMapping("/{invoiceId}")
-    public void update(@PathVariable Integer invoiceId, @RequestBody AddInvoiceRequest request){
+    public void update(@PathVariable Integer invoiceId, @RequestBody @Valid UpdateInvoiceRequest request){
 
         invoiceService.update(invoiceId,request);
 

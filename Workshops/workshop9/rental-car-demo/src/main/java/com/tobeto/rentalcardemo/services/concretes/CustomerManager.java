@@ -1,9 +1,11 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Customer;
 import com.tobeto.rentalcardemo.repository.CustomerRepository;
 import com.tobeto.rentalcardemo.services.abstracts.CustomerService;
 import com.tobeto.rentalcardemo.services.dto.customer.requests.AddCustomerRequest;
+import com.tobeto.rentalcardemo.services.dto.customer.requests.UpdateCustomerRequest;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerResponse;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse;
 import org.springframework.stereotype.Service;
@@ -23,12 +25,17 @@ public class CustomerManager implements CustomerService {
     @Override
     public AddCustomerResponse add(AddCustomerRequest request) {
 
+        if (customerRepository.existsByCitizenShipId(request.getCitizenShipId())) {
+            throw new BusinessException("This citizenship number is already in use..");
+        }
+
         Customer customer = new Customer();
 
         customer.setFirstName(request.getFirstName());
         customer.setMiddleName(request.getMiddleName());
         customer.setSurName(request.getSurName());
         customer.setAge(request.getAge());
+        customer.setCitizenShipId(request.getCitizenShipId());
 
         Customer savedCustomer = customerRepository.save(customer);
         AddCustomerResponse response = new AddCustomerResponse();
@@ -89,9 +96,9 @@ public class CustomerManager implements CustomerService {
     }
 
     @Override
-    public void update(Integer customerId, AddCustomerRequest request) {
+    public void update(UpdateCustomerRequest request) {
 
-        Customer customer = customerRepository.findById(customerId)
+        Customer customer = customerRepository.findById(request.getCustomerId())
                 .orElseThrow(()-> new RuntimeException("Customer does not exist."));
 
         customer.setFirstName(request.getFirstName());

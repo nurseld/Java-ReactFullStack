@@ -15,4 +15,6 @@ public interface CustomerRepository  extends JpaRepository<Customer, Integer> {
     @Query("Select new com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse(c.firstName,c.middleName,c.surName,c.age) " +
             "FROM Customer c WHERE c.surName = :lastName ")
     List<GetAllCustomerResponse> findLastName(String lastName);
+
+    boolean existsByCitizenShipId(String citizenShipId);
 }

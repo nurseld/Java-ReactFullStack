@@ -4,7 +4,11 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
-public class AddCustomerRequest {
+public class UpdateCustomerRequest {
+
+    @NotNull(message = "Customer ID cannot be null")
+    @Positive(message = "Customer ID must be a positive number")
+    private Integer customerId;
 
     @NotBlank(message = "First name cannot be blank")
     private String firstName;
@@ -22,6 +26,4 @@ public class AddCustomerRequest {
     @NotBlank(message = "Citizenship ID cannot be blank")
     @Pattern(regexp = "[0-9]{11}", message = "Citizenship ID must be 11 digits")
     private String citizenShipId;
-
-
 }

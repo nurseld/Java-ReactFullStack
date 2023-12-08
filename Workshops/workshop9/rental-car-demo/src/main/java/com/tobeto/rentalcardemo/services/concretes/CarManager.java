@@ -1,13 +1,16 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Car;
 import com.tobeto.rentalcardemo.repository.CarRepository;
 import com.tobeto.rentalcardemo.services.abstracts.CarService;
 import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
+import com.tobeto.rentalcardemo.services.dto.car.requests.UpdateCarRequest;
 import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
 import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
 import java.util.List;
 
 @Service
@@ -23,6 +26,16 @@ public class CarManager implements CarService {
 
     @Override
     public AddCarResponse add(AddCarRequest request) {
+
+
+        int currentYear = Year.now().getValue();
+        if (request.getModelYear() < 2000 || request.getModelYear() > currentYear) {
+            throw new BusinessException("Invalid model year.");
+        }
+
+        if ("Elektrik".equalsIgnoreCase(request.getFuelType()) && request.getModelYear() < 2015) {
+            throw new BusinessException("The model year of electric vehicles must be at least 2015.");
+        }
 
         Car car = new Car();
 
@@ -102,10 +115,9 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public void update(Integer carId, AddCarRequest request) {
+    public void update(Integer carId, UpdateCarRequest request) {
 
-        Car car = carRepository.findById(carId)
-                .orElseThrow(()-> new RuntimeException("Car does not exist."));
+        Car car = carRepository.findById(carId).orElseThrow(()-> new RuntimeException("Car does not exist."));
 
         car.setBrandName(request.getBrandName());
         car.setModelName(request.getModelName());

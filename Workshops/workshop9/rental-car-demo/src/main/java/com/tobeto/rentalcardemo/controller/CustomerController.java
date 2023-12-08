@@ -3,6 +3,7 @@ package com.tobeto.rentalcardemo.controller;
 import com.tobeto.rentalcardemo.entity.Customer;
 import com.tobeto.rentalcardemo.services.abstracts.CustomerService;
 import com.tobeto.rentalcardemo.services.dto.customer.requests.AddCustomerRequest;
+import com.tobeto.rentalcardemo.services.dto.customer.requests.UpdateCustomerRequest;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.AddCustomerResponse;
 import com.tobeto.rentalcardemo.services.dto.customer.responses.GetAllCustomerResponse;
 import jakarta.validation.Valid;
@@ -46,9 +47,9 @@ public class CustomerController {
     }
 
     @PutMapping("/{customerId}")
-    public void update(@PathVariable Integer customerId, @RequestBody AddCustomerRequest request){
+    public void update(@RequestBody @Valid UpdateCustomerRequest request){
 
-        customerService.update(customerId,request);
+        customerService.update(request);
     }
 
     @GetMapping("age")

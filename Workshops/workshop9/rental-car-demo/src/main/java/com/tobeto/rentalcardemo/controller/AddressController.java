@@ -3,6 +3,7 @@ package com.tobeto.rentalcardemo.controller;
 import com.tobeto.rentalcardemo.entity.Address;
 import com.tobeto.rentalcardemo.services.abstracts.AddressService;
 import com.tobeto.rentalcardemo.services.dto.address.requests.AddAddressRequest;
+import com.tobeto.rentalcardemo.services.dto.address.requests.UpdateAddressRequest;
 import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressResponse;
 import com.tobeto.rentalcardemo.services.dto.address.responses.GetAllAddressResponse;
 import jakarta.validation.Valid;
@@ -48,7 +49,7 @@ public class AddressController {
     }
 
     @PutMapping("/{addressId}")
-    public void update(@PathVariable Integer addressId, @RequestBody AddAddressRequest request){
+    public void update(@PathVariable Integer addressId, @RequestBody @Valid UpdateAddressRequest request){
 
         addressService.update(addressId,request);
 

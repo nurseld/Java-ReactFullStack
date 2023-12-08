@@ -1,9 +1,11 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Reservation;
 import com.tobeto.rentalcardemo.repository.ReservationRepository;
 import com.tobeto.rentalcardemo.services.abstracts.ReservationService;
 import com.tobeto.rentalcardemo.services.dto.reservation.requests.AddReservationRequest;
+import com.tobeto.rentalcardemo.services.dto.reservation.requests.UpdateReservationRequest;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservationResponse;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,10 @@ public class ReservationManager implements ReservationService {
 
     @Override
     public AddReservationResponse add(AddReservationRequest request) {
+
+        if (request.getPickUpDate() != null && request.getDropOffDate() != null && request.getPickUpDate().isAfter(request.getDropOffDate())) {
+            throw new BusinessException("The start date must be before the end date.");
+        }
 
         Reservation reservation = new Reservation();
 
@@ -84,10 +90,10 @@ public class ReservationManager implements ReservationService {
     }
 
     @Override
-    public void update(Integer reservationId, AddReservationRequest request) {
+    public void update(Integer reservationId, UpdateReservationRequest request) {
 
-        Reservation reservation = reservationRepository.findById(reservationId)
-                .orElseThrow(()-> new RuntimeException("Reservation does not exist."));
+
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(()-> new RuntimeException("Reservation does not exist."));
 
         reservation.setPickUpDate(request.getPickUpDate());
         reservation.setDropOffDate(request.getDropOffDate());

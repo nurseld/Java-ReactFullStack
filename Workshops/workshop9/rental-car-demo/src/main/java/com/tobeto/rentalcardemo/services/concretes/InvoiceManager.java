@@ -1,13 +1,16 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Invoice;
 import com.tobeto.rentalcardemo.repository.InvoiceRepository;
 import com.tobeto.rentalcardemo.services.abstracts.InvoiceService;
 import com.tobeto.rentalcardemo.services.dto.invoice.requests.AddInvoiceRequest;
+import com.tobeto.rentalcardemo.services.dto.invoice.requests.UpdateInvoiceRequest;
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.AddInvoiceResponse;
 import com.tobeto.rentalcardemo.services.dto.invoice.responses.GetAllInvoiceResponse;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +26,12 @@ public class InvoiceManager implements InvoiceService {
 
     @Override
     public AddInvoiceResponse add(AddInvoiceRequest request) {
+
+        LocalDate minPaymentDate = LocalDate.now().plusWeeks(1);
+        if (request.getPaymentDateTime() != null && request.getPaymentDateTime().isBefore(minPaymentDate)) {
+            throw new BusinessException("Invalid payment date. It should be planned for at least a week ahead.");
+        }
+
 
         Invoice invoice = new Invoice();
 
@@ -81,10 +90,9 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
-    public void update(Integer invoiceId, AddInvoiceRequest request) {
+    public void update(Integer invoiceId, UpdateInvoiceRequest request) {
 
-        Invoice invoice = invoiceRepository.findById(invoiceId)
-                .orElseThrow(()-> new RuntimeException("Invoice does not exist."));
+        Invoice invoice = invoiceRepository.findById(invoiceId).orElseThrow(()-> new RuntimeException("Invoice does not exist."));
 
         invoice.setTotalPrice(request.getTotalPrice());
         invoice.setPaymentMethod(request.getPaymentMethod());

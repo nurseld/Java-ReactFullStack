@@ -1,6 +1,8 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Telephone;
+import com.tobeto.rentalcardemo.repository.CustomerRepository;
 import com.tobeto.rentalcardemo.repository.TelephoneRepository;
 import com.tobeto.rentalcardemo.services.abstracts.TelephoneService;
 import com.tobeto.rentalcardemo.services.dto.telephone.requests.AddTelephoneRequest;
@@ -16,13 +18,20 @@ public class TelephoneManager implements TelephoneService {
 
    private final TelephoneRepository telephoneRepository;
 
-    public TelephoneManager(TelephoneRepository telephoneRepository) {
+
+    public TelephoneManager(TelephoneRepository telephoneRepository, CustomerRepository customerRepository) {
         this.telephoneRepository = telephoneRepository;
+
     }
 
 
     @Override
     public AddTelephoneResponse add(AddTelephoneRequest request) {
+
+        if (telephoneRepository.existsByPhoneNumber(request.getPhoneNumber())) {
+            throw new BusinessException("This phone number is already in use.");
+        }
+
 
         Telephone telephone = new Telephone();
 
@@ -83,8 +92,7 @@ public class TelephoneManager implements TelephoneService {
     @Override
     public void update(UpdateTelephoneRequest request) {
 
-        Telephone telephoneInDb = telephoneRepository.findById(request.getId())
-                .orElseThrow(()-> new RuntimeException("Telephone does not exist."));
+        Telephone telephoneInDb = telephoneRepository.findById(request.getTelephoneId()).orElseThrow(()-> new RuntimeException("Telephone does not exist."));
 
         telephoneInDb.setDescription(request.getDescription());
         telephoneInDb.setPhoneNumber(request.getPhoneNumber());

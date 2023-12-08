@@ -8,7 +8,11 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class AddInvoiceRequest {
+public class UpdateInvoiceRequest {
+
+    @NotNull(message = "Invoice ID cannot be null")
+    @Positive(message = "Invoice ID must be a positive number")
+    private Integer invoiceId;
 
     @Positive(message = "Total price must be a positive number")
     private double totalPrice;
@@ -18,6 +22,4 @@ public class AddInvoiceRequest {
 
     @NotBlank(message = "Payment method cannot be blank")
     private String paymentMethod;
-
-
 }

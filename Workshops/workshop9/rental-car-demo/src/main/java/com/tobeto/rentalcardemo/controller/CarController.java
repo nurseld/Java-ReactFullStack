@@ -3,6 +3,7 @@ package com.tobeto.rentalcardemo.controller;
 import com.tobeto.rentalcardemo.entity.Car;
 import com.tobeto.rentalcardemo.services.abstracts.CarService;
 import com.tobeto.rentalcardemo.services.dto.car.requests.AddCarRequest;
+import com.tobeto.rentalcardemo.services.dto.car.requests.UpdateCarRequest;
 import com.tobeto.rentalcardemo.services.dto.car.responses.AddCarResponse;
 import com.tobeto.rentalcardemo.services.dto.car.responses.GetAllCarResponse;
 import jakarta.validation.Valid;
@@ -46,7 +47,7 @@ public class CarController {
     }
 
     @PutMapping("/{carId}")
-    public void update(@PathVariable Integer carId, @RequestBody AddCarRequest request){
+    public void update(@PathVariable Integer carId, @RequestBody @Valid UpdateCarRequest request){
 
         carService.update(carId,request);
     }

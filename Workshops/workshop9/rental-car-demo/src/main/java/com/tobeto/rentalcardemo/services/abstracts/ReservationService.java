@@ -2,6 +2,7 @@ package com.tobeto.rentalcardemo.services.abstracts;
 
 import com.tobeto.rentalcardemo.entity.Reservation;
 import com.tobeto.rentalcardemo.services.dto.reservation.requests.AddReservationRequest;
+import com.tobeto.rentalcardemo.services.dto.reservation.requests.UpdateReservationRequest;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservationResponse;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public interface ReservationService {
     List<GetAllReservationResponse> getAll();
     GetAllReservationResponse getById(Integer reservationId);
     void delete(Integer reservationId);
-    void update(Integer reservationId, AddReservationRequest request);
+    void update(Integer reservationId, UpdateReservationRequest request);
     List<Reservation> getReservationStatus(String status);
     List<GetAllReservationResponse> getDropOffDateBefore(LocalDate dropOffDate);
 }

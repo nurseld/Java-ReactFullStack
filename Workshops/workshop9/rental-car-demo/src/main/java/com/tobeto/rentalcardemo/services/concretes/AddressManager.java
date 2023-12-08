@@ -1,19 +1,23 @@
 package com.tobeto.rentalcardemo.services.concretes;
 
+import com.tobeto.rentalcardemo.core.utilities.exceptions.BusinessException;
 import com.tobeto.rentalcardemo.entity.Address;
 import com.tobeto.rentalcardemo.repository.AddressRepository;
 import com.tobeto.rentalcardemo.services.abstracts.AddressService;
 import com.tobeto.rentalcardemo.services.dto.address.requests.AddAddressRequest;
+import com.tobeto.rentalcardemo.services.dto.address.requests.UpdateAddressRequest;
 import com.tobeto.rentalcardemo.services.dto.address.responses.AddAddressResponse;
 import com.tobeto.rentalcardemo.services.dto.address.responses.GetAllAddressResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class AddressManager implements AddressService {
 
     private final AddressRepository addressRepository;
+    private final List<String> supportedCountries = Arrays.asList("Turkey", "United States", "United Kingdom", "Germany");
 
     public AddressManager(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
@@ -21,6 +25,10 @@ public class AddressManager implements AddressService {
 
     @Override
     public AddAddressResponse add(AddAddressRequest request) {
+
+        if (!supportedCountries.contains(request.getCountryName())) {
+            throw new BusinessException("Invalid country name. You are trying to add an unsupported country.");
+        }
 
         Address address = new Address();
 
@@ -97,9 +105,10 @@ public class AddressManager implements AddressService {
     }
 
     @Override
-    public void update(Integer addressId, AddAddressRequest request) {
+    public void update(Integer addressId, UpdateAddressRequest request) {
 
-        Address address = addressRepository.findById(addressId).orElseThrow(()-> new RuntimeException("Address does not exist."));
+        Address address = addressRepository.findById(addressId)
+                .orElseThrow(()-> new RuntimeException("Address does not exist."));
 
         address.setLocationName(request.getLocationName());
         address.setCountryName(request.getCountryName());

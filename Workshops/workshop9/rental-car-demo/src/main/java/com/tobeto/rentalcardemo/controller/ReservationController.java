@@ -3,6 +3,7 @@ package com.tobeto.rentalcardemo.controller;
 import com.tobeto.rentalcardemo.entity.Reservation;
 import com.tobeto.rentalcardemo.services.abstracts.ReservationService;
 import com.tobeto.rentalcardemo.services.dto.reservation.requests.AddReservationRequest;
+import com.tobeto.rentalcardemo.services.dto.reservation.requests.UpdateReservationRequest;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.AddReservationResponse;
 import com.tobeto.rentalcardemo.services.dto.reservation.responses.GetAllReservationResponse;
 import jakarta.validation.Valid;
@@ -47,7 +48,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{reservationId}")
-    public void update(@PathVariable Integer reservationId, @RequestBody AddReservationRequest request){
+    public void update(@PathVariable Integer reservationId, @RequestBody @Valid UpdateReservationRequest request){
 
         reservationService.update(reservationId,request);
     }
