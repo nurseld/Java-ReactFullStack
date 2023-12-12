@@ -3,6 +3,7 @@ package org.example;
 public class Workshop1 {
     public static void main(String[] args) {
 
+
         int[] numbers = new int[]{1,2,5,7,9};
         int checkNumber = 9;
         boolean hasNumber = findNumber(numbers,9);

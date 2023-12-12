@@ -3,8 +3,7 @@ package org.example;
 public class Main {
     public static void main(String[] args) {
 
-       /* int[] numbers = new int[]{1,2,3,4,4};
-
+        int[] numbers = new int[]{1, 2, 3};
 
         Product product1 = new Product();
         product1.setName("Laptop");
@@ -12,13 +11,16 @@ public class Main {
         Product product2 = new Product();
         product2.setName("Mouse");
 
-        Product[] products = new Product[]{product1,product2};
+        Product[] products = new Product[]{product1, product2};
 
-        for (int i = 0; i < products.length ; i++) {
+
+        for (int i = 0; i < products.length; i++) {
             System.out.println(products[i].getName());
+        }
 
-        */
 
+
+        /*
         //ArrayList<CreditManager> credits = new ArrayList<CreditManager>();
         //credits.add(new MortgageManager());
         //credits.add(new VehicleManager());
@@ -31,7 +33,7 @@ public class Main {
         for (int i = 0; i < credits.length; i++) {
             credits[i].calculate();
 
-        }
+        }*/
 
 
         }
