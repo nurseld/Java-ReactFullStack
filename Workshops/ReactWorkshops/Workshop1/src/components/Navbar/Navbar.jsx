@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Navbar() {
 	return (
@@ -7,7 +8,7 @@ export default function Navbar() {
 			data-bs-theme="dark"
 		>
 			<div className="container-fluid">
-				<a className="navbar-brand" href="#">
+				<a className="navbar-brand" >
 					Navbar
 				</a>
 				<button
@@ -24,14 +25,14 @@ export default function Navbar() {
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 						<li className="nav-item">
-							<a className="nav-link active" aria-current="page" href="#">
-								Ana Sayfa
-							</a>
+							<Link className="nav-link" to="/" >
+								Homepage
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link" href="#">
-								Hakkında
-							</a>
+							<Link className="nav-link" to="/add-product" >
+								Add Product
+							</Link>
 						</li>
 					</ul>
 					<form className="d-flex" role="search">
@@ -50,3 +51,4 @@ export default function Navbar() {
 		</nav>
 	);
 }
+

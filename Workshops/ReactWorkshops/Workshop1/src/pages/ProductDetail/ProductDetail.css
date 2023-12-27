@@ -1,0 +1,11 @@
+.card-detail-content {}
+
+.card-detail-key {
+    font-weight: 700;
+    display: inline-block;
+    width: 80px;
+}
+
+.card-detail-value {
+    margin-left: 20px;
+}
