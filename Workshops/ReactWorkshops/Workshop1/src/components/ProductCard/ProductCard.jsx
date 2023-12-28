@@ -1,29 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
+import { HttpStatusCode } from "axios";
 
 export default function ProductCard(props) {
 
+	const deleteProduct = async () => {
 
-	const handleDelete = () => {
-
-		let text = "Either OK or Cancel.";
-		if (window.confirm(text) == true) {
-			console.log(props)
-			fetch(`https://dummyjson.com/products/${props.product.id}`, {
-				method: 'DELETE',
+		fetch(`https://dummyjson.com/products/${props.product.id}`, {
+			method: 'DELETE',
+		})
+			.then(response => response.json())
+			.then(data => {
+				props.onDelete(props.product.id);
+				alert("Veri başarıyla silindi.");
+				console.log('Product deleted successfully:', data);
 			})
-				.then(response => response.json())
-				.then(data => {
-					props.setProducts(props.products.filter((p => p.id !== props.product.id)))
-					console.log('Product deleted successfully:', data);
-				})
-				.catch(error => {
-					console.error('Error deleting product:', error);
-				});
-		} else {
-			alert("You canceled!");
-		}
+			.catch(error => {
+				console.error('Error deleting product:', error);
+			});
+
 	};
 
 
@@ -37,10 +33,9 @@ export default function ProductCard(props) {
 					<Link to={`/product-detail/${props.product.id}`} className="btn btn-primary card-btn card-btn-detail">
 						Details
 					</Link>
-					<button onClick={handleDelete} className="btn btn-danger card-btn card-btn-delete">Sil</button>
+					<button onClick={deleteProduct} className="btn btn-danger card-btn card-btn-delete">Sil</button>
 				</div>
 			</div>
 		</div>
 	);
 }
-

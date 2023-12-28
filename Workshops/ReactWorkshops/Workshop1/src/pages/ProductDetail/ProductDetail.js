@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export default function ProductDetail() {
+
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -21,7 +22,7 @@ export default function ProductDetail() {
     }, [id]);
 
     return (
-        <div className="container mt-5">
+        <div className="container d-flex justify-content-center mt-5">
             {product ? (
                 <div className="card" style={{ width: "36rem" }}>
                     <img src={product.thumbnail} className="card-img-top" alt="..." />
