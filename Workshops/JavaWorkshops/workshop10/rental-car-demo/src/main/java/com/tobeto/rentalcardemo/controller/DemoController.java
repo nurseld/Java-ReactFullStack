@@ -1,4 +1,4 @@
-package com.tobeto.rentalcardemo.demo;
+package com.tobeto.rentalcardemo.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

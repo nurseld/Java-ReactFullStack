@@ -1,5 +1,9 @@
-package com.tobeto.rentalcardemo.auth;
+package com.tobeto.rentalcardemo.controller;
 
+import com.tobeto.rentalcardemo.auth.AuthenticationRequest;
+import com.tobeto.rentalcardemo.auth.AuthenticationResponse;
+import com.tobeto.rentalcardemo.auth.AuthenticationService;
+import com.tobeto.rentalcardemo.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
