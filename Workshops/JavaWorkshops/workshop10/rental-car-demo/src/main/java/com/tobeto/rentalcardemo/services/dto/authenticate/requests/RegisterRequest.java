@@ -1,4 +1,4 @@
-package com.tobeto.rentalcardemo.auth;
+package com.tobeto.rentalcardemo.services.dto.authenticate.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,9 +1,9 @@
 package com.tobeto.rentalcardemo.controller;
 
-import com.tobeto.rentalcardemo.auth.AuthenticationRequest;
-import com.tobeto.rentalcardemo.auth.AuthenticationResponse;
-import com.tobeto.rentalcardemo.auth.AuthenticationService;
-import com.tobeto.rentalcardemo.auth.RegisterRequest;
+import com.tobeto.rentalcardemo.services.abstracts.AuthenticateService;
+import com.tobeto.rentalcardemo.services.dto.authenticate.requests.AuthenticationRequest;
+import com.tobeto.rentalcardemo.services.dto.authenticate.requests.RegisterRequest;
+import com.tobeto.rentalcardemo.services.dto.authenticate.responses.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthenticationController {
+public class AuthenticateController {
 
-    private final AuthenticationService service;
+    private final AuthenticateService service;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
